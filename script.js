@@ -117,12 +117,11 @@ async function showMainWindow() {
 }
 
 async function showTasks(table) {
+  Array.from(table.rows).forEach((row) => {
+    if (row.getAttribute("id") != "tasksHeader") row.remove();
+  });
   const tasks = await getTasks(token, username);
   if (tasks != null) {
-    Array.from(table.rows).forEach((row) => {
-      if (row.getAttribute("id") != "tasksHeader") row.remove();
-    });
-
     tasks.forEach((task) => {
       let tr = document.createElement("tr");
       for (let taskElem in task) {
@@ -222,14 +221,30 @@ function initControlButton(table) {
           startBtn.parentElement.parentElement.cells[0].innerText
         );
         if (startCalculation(token, id)) {
-          tr.cells[4].innerText = "processing";
+          tr.cells[4].innerText = "in process";
         }
       });
       tdStart.appendChild(startBtn);
       tr.appendChild(tdStart);
-
-      table.appendChild(tr);
     }
+    if (tr.getAttribute("id") != "tasksHeader") {
+      let tdDelete = document.createElement("td");
+      let deleteBtn = document.createElement("input");
+      deleteBtn.setAttribute("class", "delete");
+      deleteBtn.type = "button";
+      deleteBtn.value = "Удалить";
+      deleteBtn.addEventListener("click", () => {
+        const id = Number(
+          deleteBtn.parentElement.parentElement.cells[0].innerText
+        );
+        if (deleteTask(token, id)) {
+          showTasks(table);
+        }
+      });
+      tdDelete.appendChild(deleteBtn);
+      tr.appendChild(tdDelete);
+    }
+    table.appendChild(tr);
   });
 }
 
@@ -247,6 +262,10 @@ async function getTasks(token, login) {
 
 async function createTask(token, login, value1, value2) {
   return (await import("./transport.js")).createTask(...arguments);
+}
+
+async function deleteTask(token, id) {
+  return (await import("./transport.js")).deleteTask(...arguments);
 }
 
 async function startCalculation(token, login, id) {

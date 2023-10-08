@@ -66,6 +66,24 @@ export async function createTask(ltoken, llogin, lvalue1, lvalue2) {
   else return null;
 }
 
+export async function deleteTask(ltoken, lid) {
+  let response = await fetch(`http://localhost:8080/task`, {
+    method: "DELETE",
+    body: JSON.stringify({
+      token: ltoken,
+      id: lid,
+    }),
+  });
+  
+  const result = JSON.parse(await response.text());
+  const status = response.status;
+  console.log(result.desc);
+  console.log(status);
+
+  if (status == "200") return result.result;
+  else return null;
+}
+
 export async function startCalculation(ltoken, lid) {
   let response = await fetch(`http://localhost:8080/calculation/sum`, {
     method: "POST",
