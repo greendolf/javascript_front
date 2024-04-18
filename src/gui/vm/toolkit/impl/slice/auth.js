@@ -7,18 +7,18 @@ const getAuth = createAsyncThunk(
     async ({ login, password }) => {
         const result = await (
             await import("../../../../transport/transport.js")
-        ).login({ login, password });
+        ).getAuth({ login, password });
         console.log(result.message);
         return result.message;
     }
 );
 
 const getRegister = createAsyncThunk(
-    "auth/getRegister",
+    "auth/postAuth",
     async ({ login, password }) => {
         const result = await (
             await import("../../../../transport/transport.js")
-        ).register({ login, password });
+        ).postAuth({ login, password });
         console.log(result.message);
         return result.message;
     }
@@ -35,7 +35,7 @@ const authSlice = createSlice({
             state.password = action.payload;
         },
         saveToken: (state, action) => {
-            state.password = action.payload;
+            state.token = action.payload;
         },
     },
     extraReducers: (builder) => {

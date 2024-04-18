@@ -23,12 +23,13 @@ function LoginForm(props) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (token) navigate("/tasks");
-        else {
+        if (token) {
+            console.log(token);
+            navigate("/tasks");
+        } else {
             console.log("bad status");
-            alert(token);
         }
-    }, [token, navigate]);
+    }, [token]);
 
     const handleLogin = (event) => {
         loginDispatch(event.target.value);

@@ -3,13 +3,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import { Provider } from "react-redux";
 // import Store from "./gui/vm/redux/store.js";
 
-import LoginPage from "./gui/page/login-page/component.js";
-import TaskPage from "./gui/page/task-page/component.js";
+import AuthPage from "./gui/page/auth-page/component.js";
+import TaskPage from "./gui/page/tasks-page/component.js";
 
 import buildProvider from "./gui/vm/builder/builder.js";
 
-const pgLogin = <LoginPage />;
-const pgTask = <TaskPage />;
+const pgAuth = <AuthPage />;
+const pgTasks = <TaskPage />;
 
 const Provider = await buildProvider("redux");
 
@@ -19,8 +19,8 @@ function App() {
             <Router>
                 <>
                     <Routes>
-                        <Route path="" element={pgLogin} />
-                        <Route path="/tasks" element={pgTask} />
+                        <Route path="" element={pgAuth} />
+                        <Route path="/tasks" element={pgTasks} />
                     </Routes>
                 </>
             </Router>

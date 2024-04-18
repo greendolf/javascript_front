@@ -5,6 +5,7 @@ import {
     savePassword,
     getAuth,
     getRegister,
+    saveToken,
 } from "./impl/slice/auth.js";
 import { getTasks } from "./impl/slice/tasks.js";
 import { postTask, saveValues } from "./impl/slice/task.js";
@@ -32,6 +33,11 @@ export function useToken() {
     return token;
 }
 
+export function useTokenDispatch() {
+    const dispatch = useDispatch();
+    return (token) => dispatch(saveToken(token));
+}
+
 export function useAuth() {
     const dispatch = useDispatch();
     return (login, password) => dispatch(getAuth({ login, password }));
@@ -55,7 +61,9 @@ export function useTasksDispatch() {
 //     const dispatch = useDispatch();
 //     return (values) => dispatch(saveValues(values));
 // }
+
 export function useValuesDispatch() {
     const dispatch = useDispatch();
-    return (token, values) => dispatch(postTask(token, values));
+    return (token, values) =>
+        dispatch(postTask({ token: token, values: values }));
 }

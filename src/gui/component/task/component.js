@@ -1,35 +1,36 @@
-import Manager from '../../state/manager.js';
-
 function Task(props) {
-    const manager = new Manager();
-    
-    const statusCond = props.status !== 'not started';
-
-    const handleClick = () => {
-        manager.updateState('id', props.ID);
-        if (statusCond) manager.query('delete');
-        else manager.query('calculation');
+    const handleMore = () => {
+        // mock
     };
 
-    const tds = Object.keys(props).map(propName => {
+    const handleDelete = () => {
+        // mock
+    };
+    console.log(props);
+
+    const tds = Object.keys(props.data).map((propName) => {
         return (
-            <td key={propName} style={{
-                border: '1px solid grey'
-            }}>
-                {props[propName]}
+            <td
+                key={propName}
+                style={{
+                    border: "1px solid grey",
+                }}
+            >
+                {props.data[propName]}
             </td>
-        )
+        );
     });
 
     return (
         <tr>
             {tds}
-            <td style={{
-                    border: '1px solid grey'
-                }}>
-                    <button onClick={handleClick}>
-                        {statusCond ? 'Удалить' : 'Запустить'}
-                    </button>
+            <td
+                style={{
+                    border: "1px solid grey",
+                }}
+            >
+                <button onClick={handleMore}>Подробнее</button>
+                <button onClick={handleDelete}>Удалить</button>
             </td>
         </tr>
     );

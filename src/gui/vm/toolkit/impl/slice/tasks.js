@@ -1,25 +1,20 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+//import Task from "./task.js";
+import Task from "../../../../component/task/component.js";
 
 const initialState = { list: [] };
 
 const getTasks = createAsyncThunk("tasks/getTasks", async (token) => {
-    const list = await (
+    const result = await (
         await import("../../../../transport/transport.js")
     ).getTasks({ token });
-    return list;
+    return result.message;
 });
 
 const tasksSlice = createSlice({
     name: "tasks",
     initialState,
-    reducers: {
-        saveValue1(state, action) {
-            state.value1 = action.payload;
-        },
-        saveValue2(state, action) {
-            state.value2 = action.payload;
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder.addCase(getTasks.fulfilled, (state, action) => {
             state.list = action.payload;

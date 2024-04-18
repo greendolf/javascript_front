@@ -1,45 +1,23 @@
-import { useState, useEffect } from 'react';
-import Manager from '../../state/manager.js';
+import { useTasks } from "../../vm/toolkit/api";
 
 function TaskStatus(props) {
-    const [status, setStatus] = useState({});
+    const list = useTasks();
 
-    const manager = new Manager();
-
-    const checkState = (stateName, state) => {
-        const statusTemp = {
-            count: state.list.length,
-            waiting: 0,
-            processing: 0,
-            processed: 0
-        };
-
-        switch (stateName) {
-            case 'tasks':
-                state.list.forEach(task => {
-                    const stat = task.status.toLowerCase();
-                    statusTemp[stat]++;
-                });
-                setStatus(statusTemp);
-                break;
-        }
+    const status = {
+        count: list.length,
+        waiting: list.filter((task) => task.status == "not started").length,
+        processing: list.filter((task) => task.status == "in process").length,
+        processed: list.filter((task) => task.status == "processed").length,
     };
-
-    // useEffect(() => {
-    //     const subscribe = async () => {
-    //         manager.subscribe('tasks', checkState, true);        
-    //     };
-    //     subscribe();
-    //     return unsubscribe;
-    // }, []);
 
     const spansObj = {
-        'Количество задач': status.count,
-        'В ожидании': status.waiting,
-        'Выполняются': status.processing,
-        'Выполнены': status.processed
+        "Количество задач": status.count,
+        "В ожидании": status.waiting,
+        Выполняются: status.processing,
+        Выполнены: status.processed,
     };
-    const spans = Object.entries(spansObj).map(pair => {
+
+    const spans = Object.entries(spansObj).map((pair) => {
         return (
             <span key={pair[0]}>
                 {pair[0]}: {pair[1]}
@@ -48,9 +26,12 @@ function TaskStatus(props) {
     });
 
     return (
-        <fieldset style={{
-            display: 'grid'
-        }}>
+        <fieldset
+            style={{
+                display: "grid",
+                width: 200
+            }}
+        >
             {spans}
         </fieldset>
     );

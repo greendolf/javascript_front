@@ -3,6 +3,8 @@ import {
     useLogin,
     useLoginDispatch,
     usePasswordDispatch,
+    useToken,
+    useTokenDispatch,
 } from "../../vm/toolkit/api.js";
 
 function PageSlider() {
@@ -10,10 +12,12 @@ function PageSlider() {
     const login = useLogin();
     const loginDispatch = useLoginDispatch();
     const passwordDispatch = usePasswordDispatch();
+    const tokenDispatch = useTokenDispatch();
 
     const handleClick = () => {
         loginDispatch("");
         passwordDispatch("");
+        tokenDispatch("");
         navigate("/");
     };
 
