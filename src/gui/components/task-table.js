@@ -1,20 +1,12 @@
-// import { useState, useEffect } from "react";
-//import Manager from "../../state/manager.js";
-
-// import { useTasks } from "../../vm/redux/api.js";
 import {
     useValuesDispatch,
     useTasksDispatch,
     useToken,
     useTasks,
-} from "../../vm/toolkit/api.js";
-import TaskHeader from "../task-header/component.js";
-import Task from "../task/component.js";
+} from "../vm/toolkit/api.js";
+import Task from "./task.js";
 
 function TaskTable(props) {
-    //const [tasks, setTasks] = useState([]);
-
-    //const manager = new Manager();
     const token = useToken();
     const list = useTasks();
     const update = useTasksDispatch();
@@ -32,20 +24,51 @@ function TaskTable(props) {
             // values.push(value);
             values.push(i);
         }
-
         valuesDispatch(token, values);
-
-        // manager.updateState("value1", value1);
-        // manager.updateState("value2", value2);
-        // manager.query("create");
     };
+
+    // const header = [
+    //     "ID",
+    //     "status",
+    //     "nx",
+    //     "ny",
+    //     "time_end",
+    //     "length",
+    //     "width",
+    //     "lambda",
+    //     "ro",
+    //     "c",
+    //     "t_start",
+    //     "t_left",
+    //     "t_right",
+    // ];
+    const header = [
+        "Id",
+        "Status",
+        "Parameters",
+        "Actions"
+    ]
+
+    const ths = header.map((elem) => {
+        return (
+            <th
+                key={elem}
+                style={{
+                    border: "1px solid grey",
+                }}
+            >
+                {elem}
+            </th>
+        );
+    });
+
     return (
         <>
             <button onClick={handleUpdate}>Обновить</button>
             <button onClick={handleAdd}>Добавить</button>
             <table className="container">
                 <tbody>
-                    <TaskHeader />
+                    <tr>{ths}</tr>
                     {list.map((task) => {
                         return <Task key={task.id} data={task} />;
                     })}

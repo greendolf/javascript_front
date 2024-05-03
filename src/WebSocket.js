@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 
 export const useWs = (url) => {
     const [isReady, setIsReady] = useState(false);
-    const [val, setVal] = useState("");
+    const [time, setTime] = useState("");
 
     const ws = useRef(null);
 
@@ -11,7 +11,7 @@ export const useWs = (url) => {
 
         socket.onopen = () => setIsReady(true);
         socket.onclose = () => setIsReady(false);
-        socket.onmessage = (event) => setVal(event.data);
+        socket.onmessage = (event) => setTime(event.data);
 
         ws.current = socket;
 
@@ -20,5 +20,5 @@ export const useWs = (url) => {
         };
     }, []);
 
-    return [isReady, val, ws.current?.send.bind(ws.current)];
+    return [isReady, time, ws.current?.send.bind(ws.current)];
 };

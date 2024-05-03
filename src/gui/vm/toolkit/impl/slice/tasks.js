@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 //import Task from "./task.js";
-import Task from "../../../../component/task/component.js";
+import Task from "../../../../components/task.js";
 
 const initialState = { list: [] };
 

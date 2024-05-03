@@ -1,13 +1,13 @@
-import { useTasks } from "../../vm/toolkit/api";
+import { useTasks } from "../vm/toolkit/api";
 
 function TaskStatus(props) {
     const list = useTasks();
 
     const status = {
         count: list.length,
-        waiting: list.filter((task) => task.status == "not started").length,
-        processing: list.filter((task) => task.status == "in process").length,
-        processed: list.filter((task) => task.status == "processed").length,
+        waiting: list.filter((task) => task.status === "not started").length,
+        processing: list.filter((task) => task.status === "in process").length,
+        processed: list.filter((task) => task.status === "processed").length,
     };
 
     const spansObj = {
@@ -17,22 +17,22 @@ function TaskStatus(props) {
         Выполнены: status.processed,
     };
 
-    const spans = Object.entries(spansObj).map((pair) => {
+    const ps = Object.entries(spansObj).map((pair) => {
         return (
-            <span key={pair[0]}>
+            <p key={pair[0]}>
                 {pair[0]}: {pair[1]}
-            </span>
+            </p>
         );
     });
 
     return (
-        <fieldset
+        <fieldset className="status"
             style={{
                 display: "grid",
                 width: 200
             }}
         >
-            {spans}
+            {ps}
         </fieldset>
     );
 }

@@ -7,10 +7,13 @@ import {
     useAuth,
     useRegister,
     useToken,
-} from "../../vm/toolkit/api.js";
+} from "../vm/toolkit/api.js";
 import { useEffect } from "react";
 
-function TaskInput(props) {
+function LoginForm(props) {
+    const login = useLogin();
+    const password = usePassword();
+    const token = useToken();
 
     const loginDispatch = useLoginDispatch();
     const passwordDispatch = usePasswordDispatch();
@@ -59,7 +62,7 @@ function TaskInput(props) {
     };
 
     return (
-        <div className="taskForm">
+        <div className="authForm">
             <input
                 type="text"
                 placeholder="Имя пользователя"

@@ -5,9 +5,9 @@ import {
     usePasswordDispatch,
     useToken,
     useTokenDispatch,
-} from "../../vm/toolkit/api.js";
+} from "../vm/toolkit/api.js";
 
-function PageSlider() {
+function Logout() {
     const navigate = useNavigate();
     const login = useLogin();
     const loginDispatch = useLoginDispatch();
@@ -22,11 +22,11 @@ function PageSlider() {
     };
 
     return (
-        <>
+        <div>
             <span className="user">{login}</span>
             <button onClick={handleClick}>Выйти</button>
-        </>
+        </div>
     );
 }
 
-export default PageSlider;
+export default Logout;
